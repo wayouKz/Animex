@@ -24,6 +24,6 @@
       "@fortawesome/*": ["./node_modules/@fortawesome/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/search/[keyword]/page.jsx", "src/app/page.jsx", "src/app/components/AnimeList/index.jsx", "src/app/components/AnimeList/header.jsx", "src/app/details/[slug]/[id]/page.jsx", "src/app/details/[slug]/top-anime/page.jsx", "src/app/components/Utilities/Pagination/index.jsx"],
   "exclude": ["node_modules"]
 }
