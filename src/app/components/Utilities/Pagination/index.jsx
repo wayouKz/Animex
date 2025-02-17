@@ -1,4 +1,4 @@
-const paginations = ({page, setPage,pageTerbaru } : {page:number,setPage:any,pageTerbaru:number}) => {
+const paginations = ({page, setPage,pageTerbaru } ) => {
 
     const handleNextPage = ()  => {
         pageTerbaru((prevState) => prevState + 1);

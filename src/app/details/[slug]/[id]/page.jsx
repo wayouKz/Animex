@@ -6,7 +6,7 @@ import Favorite from "@app/components/Utilities/Favorite"
 import Comment from "@app/components/Utilities/Comment"
 import EpisodesList from "@app/components/EpisodesList"
 
-const details = async ({ params }: any) => {
+const details = async ({ params }) => {
     const api = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/${params.slug}/${params.id}`)
     const data = await api.json()
 
