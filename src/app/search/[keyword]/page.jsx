@@ -2,7 +2,7 @@ import Header from "../../components/AnimeList/header";
 import AnimeList from "../../components/AnimeList";
 import Loading from "../../components/Utilities/Loading";
 
-const Page = async ({ params } : any) => {
+const Page = async ({ params }) => {
     const keyWord = params.keyword;
     console.log(params);
     try {
@@ -13,7 +13,7 @@ const Page = async ({ params } : any) => {
             <>
                 <section>
                     <Header title={`Results for ${keyWord}`} linkHref="/details/top" linkTitle="" />
-                    <AnimeList url={'anime'} api={{ data: animeData }} />
+                    <AnimeList api={{ data: animeData }} />
                 </section>
             </>
         );

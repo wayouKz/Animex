@@ -1,5 +1,5 @@
 import Link from "next/link"
-const Header = ({title,linkHref,linkTitle}: {title:string,linkHref:string,linkTitle:string}) => {
+const Header = ({title,linkHref,linkTitle}) => {
     return (
         <>
          <div className="p-3 flex justify-between">

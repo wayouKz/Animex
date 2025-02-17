@@ -10,20 +10,10 @@ const Page = () => {
     Anime: [],
 
   });
-  const [session, setSession] = useState([]);
   
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // const Session = async () => {
-    //   try {
-    //     const res = await fetch('/api/auth/session');
-    //     const data = await res.json();
-    //     setSession(data);
-    //   } catch (error) {
-    //     console.error("Error fetching data:", error);
-    //   }
-    // }
     const fetchData = async () => {
       try {
         setLoading(true);
@@ -52,7 +42,7 @@ const Page = () => {
     };
 
     fetchData();
-    // Session();
+
   }, []);
 
   return loading ? (
@@ -65,7 +55,7 @@ const Page = () => {
           linkHref="/details/anime/top-anime"
           linkTitle="See All Top Anime"
         />
-        <AnimeList api={data.TopAnime} url="anime"  />
+        <AnimeList api={data.TopAnime}  />
       </section>
       <section className="p-2">
         <Header
@@ -73,7 +63,7 @@ const Page = () => {
           linkHref="/details/anime"
           linkTitle="See All Anime"
         />
-          <AnimeList api={data.Anime} url="anime" />
+          <AnimeList api={data.Anime} />
       </section>
     </div>
   );
