@@ -2,8 +2,7 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
-
-export const authOptions = {
+export const authOption = {
     providers: [
         CredentialsProvider({
             name: "Credentials",
@@ -19,6 +18,7 @@ export const authOptions = {
                 console.log("Authorize function called:", credentials.email);
 
                 try {
+                    // const res = await fetch("http://localhost:3000/api/auth/login", {
                     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/login`, {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
@@ -29,13 +29,14 @@ export const authOptions = {
                         }),
                     });
 
-                    if (res.status === 404) {
-                        return null;
-                    }
-                    if (res.ok) {
-                        const user = await res.json();
-                        return user || null;
-                    }
+                 if (res.status === 404) {
+                    return null;
+                 }
+                 if(res.ok) {
+                    const user = await res.json();
+                    return user || null;
+                 }
+                   
                 } catch (error) {
                     console.error("Login error:", error);
                     throw new Error("Something went wrong");
@@ -59,6 +60,7 @@ export const authOptions = {
                 try {
                     const email = profile.email ?? `${profile.id}@github.com`;
 
+                    // const res = await fetch("http://localhost:3000/api/auth/github-login", {
                     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/github-login`, {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
@@ -74,6 +76,8 @@ export const authOptions = {
                     if (!res.ok) {
                         console.error("GitHub login failed:", await res.text());
                         return false;
+                    }else if(res.status === 400){
+                        JSON.parse(await res.text()).error
                     }
 
                     return true;
@@ -81,11 +85,12 @@ export const authOptions = {
                     console.error("GitHub sign-in error:", error);
                     return false;
                 }
-            } else if (account.provider === "google") {
+            }else if (account.provider === "google") {
+                console.log(profile);
                 try {
                     const email = profile.email ?? `${profile.sub}@google.com`;
-
-                    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/github-login`, {
+                    // const res = await fetch("http://localhost:3000/api/auth/github-login", {
+                        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/github-login`, {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({
@@ -96,20 +101,20 @@ export const authOptions = {
                             provider: "google"
                         })
                     });
-
                     if (!res.ok) {
                         console.error("Google login failed:", await res.text());
                         return false;
+                    }else if(res.status === 400){
+                        JSON.parse(await res.text()).error
                     }
-
                     const user = await res.json();
-                    return user;
-                } catch (error) {
-                    console.error("Google sign-in error:", error);
-                    return false;
-                }
-            }
 
+                    return user;
+            }catch (error) {
+                console.error("Google sign-in error:", error);
+                return false;
+            }
+        }
             return true;
         },
 
@@ -129,17 +134,17 @@ export const authOptions = {
         },
     },
     session: {
-        strategy: "jwt",
-        maxAge: 60 * 60,
-        updateAge: 5 * 60,
-    },
-    jwt: {
-        secret: process.env.NEXTAUTH_SECRET
-    },
+        strategy: "jwt", // Gunakan JWT untuk sesi tanpa penyimpanan server
+        maxAge: 60 * 60, // Session akan berakhir dalam 1 jam (3600 detik)
+        updateAge: 5 * 60, // Perbarui token setiap 5 menit jika digunakan
+      },
+      jwt: {
+          secret: process.env.NEXTAUTH_SECRET
+      },
     pages: { signIn: "/login" },
     secret: process.env.NEXTAUTH_SECRET,
     debug: true,
 };
 
-const handler = NextAuth(authOptions);
+const handler = NextAuth(authOption);
 export { handler as GET, handler as POST };
