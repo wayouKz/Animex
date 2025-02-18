@@ -21,12 +21,12 @@ model users {
   image   String?
   githubId String @unique
   provider  String
-  favorite favoriteAnime[] 
+  favorite favoriteanime[] 
   like    likeanime[]
-  comment commentAnime[]
+  comment commentanime[]
 }
 
-model favoriteAnime {
+model favoriteanime {
   id      Int     @id @default(autoincrement())
   user    users   @relation(fields: [idUser], references: [githubId], onDelete: Cascade)
   idUser  String  
@@ -44,7 +44,7 @@ model likeanime {
   title String?
 }
 
-model commentAnime{
+model commentanime{
   id Int @id @default(autoincrement())
   user users @relation(fields: [userId],references: [githubId],onDelete: Cascade)
   userId String
