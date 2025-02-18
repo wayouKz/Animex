@@ -12,14 +12,14 @@ export async function POST(request) {
         }
         const mal_idInt = parseInt(mal_id,10)
         // const userIDint = parseInt(userID,10)
-        const cek = await prisma.favoriteAnime.findFirst({
+        const cek = await prisma.favoriteanime.findFirst({
             where:{
                 idUser: userID,
                 mal_id: mal_idInt
             }
         })
         if(cek){
-        const hapus = await prisma.favoriteAnime.delete({
+        const hapus = await prisma.favoriteanime.delete({
             where:{
                 id: cek.id,
             }
@@ -35,7 +35,7 @@ export async function POST(request) {
                 { status: 201 }
             );
         }
-            const create = await prisma.favoriteAnime.create({
+            const create = await prisma.favoriteanime.create({
                 data: {
                     idUser: userID,
                     mal_id: mal_idInt,
