@@ -5,7 +5,7 @@ import prisma from "../../../lib/prisma"
 export async function GET(req) {
     const userID = req.nextUrl.searchParams.get("userID");
     try {
-        const data = await prisma.favoriteAnime.findMany({
+        const data = await prisma.favoriteanime.findMany({
             where: {
                 idUser: userID
             }

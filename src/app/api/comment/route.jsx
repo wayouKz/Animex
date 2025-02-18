@@ -10,7 +10,7 @@ export async function POST(req) {
     }
 
     try {
-        await prisma.commentAnime.create({
+        await prisma.commentanime.create({
             data: {
                 mal_id,
                 userId: userID,
