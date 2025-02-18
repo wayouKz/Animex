@@ -62,7 +62,7 @@ export async function GET(req) {
     try {
         const userID = req.nextUrl.searchParams.get("userID");
         const userIDInt = parseInt(userID, 10);
-        const data = await prisma.favoriteAnime.findMany({
+        const data = await prisma.favoriteanime.findMany({
             where: {
                 idUser: userID
             }
